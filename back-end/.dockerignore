@@ -1,0 +1,8 @@
+.dockerignore
+.gitignore
+.idea
+Dockerfile
+build
+gradlew*
+k8s
+lombok.config

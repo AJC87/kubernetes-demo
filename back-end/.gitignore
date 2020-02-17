@@ -30,3 +30,6 @@ out/
 
 ### VS Code ###
 .vscode/
+
+# my stuff
+lombok.config

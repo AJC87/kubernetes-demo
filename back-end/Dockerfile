@@ -1,17 +1,19 @@
 FROM gradle:6.1.1-jdk13 AS builder
 
+COPY --chown=gradle:gradle . /project
+
 WORKDIR /project
 
-COPY --chown=gradle:gradle . /
+RUN ls -la
 
 RUN gradle assemble --no-daemon
 
 FROM adoptopenjdk:13.0.2_8-jre-openj9-0.18.0-bionic
 
-WORKDIR /project
+COPY --from=builder /project/build/libs/*.jar /project/app.jar
 
-COPY --from=builder /build/libs/*.jar /project/app.jar
+WORKDIR /project
 
 EXPOSE 8080
 
-CMD ["java", "-jar", "/project/app.jar"]
+CMD ["java", "-jar", "app.jar"]

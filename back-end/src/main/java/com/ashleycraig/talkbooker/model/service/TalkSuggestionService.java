@@ -14,6 +14,7 @@ public class TalkSuggestionService {
 
     public void saveTalkSuggestion(final TalkSuggestionViewModel talkSuggestionViewModel) {
         final TalkSuggestion talkSuggestion = new TalkSuggestion();
+
         talkSuggestion.setFirstName(talkSuggestionViewModel.getFirstName());
         talkSuggestion.setLastName(talkSuggestionViewModel.getLastName());
         talkSuggestion.setTopic(talkSuggestionViewModel.getTopic());
