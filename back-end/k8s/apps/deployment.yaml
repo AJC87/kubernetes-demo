@@ -20,9 +20,21 @@ spec:
             containers:
             - name: talk-booker-back-end
               image: talk-booker-back-end
+              volumeMounts:
+                - name: credentials
+                  mountPath: "/etc/credentials"
+                  readOnly: true
               imagePullPolicy: Never
               env:
                 - name: SPRING.DATA.MONGODB.URI
-                  value: "mongodb://user:password2020@demo-cluster-shard-00-00-bz0qv.gcp.mongodb.net:27017,demo-cluster-shard-00-01-bz0qv.gcp.mongodb.net:27017,demo-cluster-shard-00-02-bz0qv.gcp.mongodb.net:27017/test?ssl=true&replicaSet=demo-cluster-shard-0&authSource=admin&retryWrites=true&w=majority"
+                  valueFrom:
+                    secretKeyRef:
+                        name: mongodb
+                        key: uri
               ports:
               - containerPort: 8080
+            volumes:
+            - name: credentials
+              secret:
+                secretName: mongodb
+                
