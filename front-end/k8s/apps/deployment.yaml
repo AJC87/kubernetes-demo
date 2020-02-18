@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: talk-booker-front-end
+    labels:
+        app: talk-booker-front-end
+spec:
+    replicas: 1
+    selector:
+        matchLabels:
+            app: talk-booker-front-end
+    template:
+        metadata:
+            name: talk-booker-front-end
+            labels:
+                app: talk-booker-front-end
+                role: front-end
+                env: local
+        spec:
+            containers:
+            - name: talk-booker-front-end
+              image: talk-booker-front-end
+              imagePullPolicy: Never
+              ports:
+              - containerPort: 80

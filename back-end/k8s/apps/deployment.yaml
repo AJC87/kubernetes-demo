@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: talk-booker-back-end
+    labels:
+        app: talk-booker-back-end
+spec:
+    replicas: 1
+    selector:
+        matchLabels:
+            app: talk-booker-back-end
+    template:
+        metadata:
+            name: talk-booker-back-end
+            labels:
+                app: talk-booker-back-end
+                role: back-end
+                env: local
+        spec:
+            containers:
+            - name: talk-booker-back-end
+              image: talk-booker-back-end
+              imagePullPolicy: Never
+              env:
+                - name: SPRING.DATA.MONGODB.URI
+                  value: "mongodb://user:password2020@demo-cluster-shard-00-00-bz0qv.gcp.mongodb.net:27017,demo-cluster-shard-00-01-bz0qv.gcp.mongodb.net:27017,demo-cluster-shard-00-02-bz0qv.gcp.mongodb.net:27017/test?ssl=true&replicaSet=demo-cluster-shard-0&authSource=admin&retryWrites=true&w=majority"
+              ports:
+              - containerPort: 8080

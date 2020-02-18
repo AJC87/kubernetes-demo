@@ -4,8 +4,6 @@ COPY --chown=gradle:gradle . /project
 
 WORKDIR /project
 
-RUN ls -la
-
 RUN gradle assemble --no-daemon
 
 FROM adoptopenjdk:13.0.2_8-jre-openj9-0.18.0-bionic

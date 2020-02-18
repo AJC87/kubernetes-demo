@@ -1,10 +1,51 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8">
+    <meta charset="utf-8" />
     <title>Talk Booker</title>
   </head>
   <body>
-    <p>Hello!</p>
+    <h1>Welcome to Talk Booker</h1>
+    <h2>Enter your details and talk suggestion in the form below:<h2>
+    <form id="form" name="form" onsubmit="send()">
+      <div>
+        <label for="firstName">First name:</label><br />
+        <input type="text" name="firstName" /><br />
+      </div>
+      <div>
+        <label for="lastName">Last name:</label><br />
+        <input type="text" name="lastName" /><br />
+      </div>
+      <div>
+        <label for="topic">Topic:</label><br />
+        <input type="text" name="topic" />
+      </div>
+      <input type="submit" value="Submit!" />
+    </form>
+    <script>
+      function send() {
+        const form = document.getElementById("form");
+        const formData = new FormData(form);
+        const body = {
+          firstName: formData.get("firstName"),
+          lastName: formData.get("lastName"),
+          topic: formData.get("topic"),
+        };
+        fetch("http://testhost/api/", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(body)
+        });
+        // .then((response) => response.json())
+        // .then((data) => {
+        //   alert('Success:', data);
+        // })
+        // .catch((error) => {
+        //   alert('Error:', error);
+        // });
+      }
+    </script>
   </body>
 </html>

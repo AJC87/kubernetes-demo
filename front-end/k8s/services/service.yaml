@@ -1,0 +1,14 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: talk-booker-front-end
+spec:
+  type: NodePort
+  ports:
+  - name: http
+    port: 80
+    targetPort: 80
+    protocol: TCP
+  selector:
+    role: front-end
+    app: talk-booker-front-end
