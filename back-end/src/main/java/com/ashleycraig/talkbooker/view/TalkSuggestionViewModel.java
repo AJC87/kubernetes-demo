@@ -1,15 +1,15 @@
 package com.ashleycraig.talkbooker.view;
 
 import javax.validation.constraints.NotBlank;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
 @ToString
 @Getter
 @Setter
-@AllArgsConstructor
+@NoArgsConstructor
 public class TalkSuggestionViewModel {
 
     @NotBlank

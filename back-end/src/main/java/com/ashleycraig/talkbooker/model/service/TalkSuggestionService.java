@@ -1,24 +1,36 @@
 package com.ashleycraig.talkbooker.model.service;
 
 import com.ashleycraig.talkbooker.model.entity.TalkSuggestion;
+import com.ashleycraig.talkbooker.model.mapping.TalkSuggestionMapper;
 import com.ashleycraig.talkbooker.model.repository.TalkSuggestionRepository;
 import com.ashleycraig.talkbooker.view.TalkSuggestionViewModel;
-import lombok.AllArgsConstructor;
+import java.util.List;
+import java.util.Optional;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+@RequiredArgsConstructor
 @Service
-@AllArgsConstructor
 public class TalkSuggestionService {
 
-    private TalkSuggestionRepository talkSuggestionRepository;
+  private final TalkSuggestionRepository talkSuggestionRepository;
+  private final TalkSuggestionMapper talkSuggestionMapper = TalkSuggestionMapper.INSTANCE;
 
-    public void saveTalkSuggestion(final TalkSuggestionViewModel talkSuggestionViewModel) {
-        final TalkSuggestion talkSuggestion = new TalkSuggestion();
+  public Optional<TalkSuggestion> saveTalkSuggestion(final TalkSuggestionViewModel talkSuggestionViewModel) {
 
-        talkSuggestion.setFirstName(talkSuggestionViewModel.getFirstName());
-        talkSuggestion.setLastName(talkSuggestionViewModel.getLastName());
-        talkSuggestion.setTopic(talkSuggestionViewModel.getTopic());
+    Optional<TalkSuggestion> optionalTalkSuggestion = talkSuggestionRepository
+        .findOneByFirstNameAndLastNameAndTopic(talkSuggestionViewModel.getFirstName(), talkSuggestionViewModel.getLastName(), talkSuggestionViewModel.getTopic());
 
-        talkSuggestionRepository.save(talkSuggestion);
+    if (optionalTalkSuggestion.isPresent()) {
+      return Optional.empty();
     }
+
+    final TalkSuggestion talkSuggestion = talkSuggestionMapper.talkSuggestionViewModelToTalkSuggestion(talkSuggestionViewModel);
+
+    return Optional.of(talkSuggestionRepository.save(talkSuggestion));
+  }
+
+  public List<TalkSuggestion> getTalkSuggestions() {
+    return talkSuggestionRepository.findAll();
+  }
 }

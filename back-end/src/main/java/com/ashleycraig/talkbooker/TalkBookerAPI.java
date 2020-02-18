@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class TalkBookerAPI {
 
-	public static void main(String[] args) {
-	    SpringApplication.run(TalkBookerAPI.class, args);
-	}
+  public static void main(String[] args) {
+    SpringApplication.run(TalkBookerAPI.class, args);
+  }
 }
