@@ -1,4 +1,4 @@
-package com.ashleycraig.talkbooker.model.controller;
+package com.ashleycraig.talkbooker.controller;
 
 import com.ashleycraig.talkbooker.model.entity.TalkSuggestion;
 import com.ashleycraig.talkbooker.model.mapping.TalkSuggestionMapper;
