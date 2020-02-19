@@ -38,7 +38,7 @@
           lastName: formData.get("lastName"),
           topic: formData.get("topic"),
         };
-        fetch("http://testhost/", {
+        fetch("http://kubehost/", {
           method: "POST",
           headers: {
             "Content-Type": "application/json"
@@ -56,7 +56,7 @@
         });
       }
       const getData = () => {
-        fetch("http://testhost/")
+        fetch("http://kubehost/api/")
         .then((response) => response.json())
         .then((data) => {
           console.log(data);
