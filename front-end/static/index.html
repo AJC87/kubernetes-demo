@@ -22,8 +22,15 @@
       </div>
       <input type="submit" value="Submit!" />
     </form>
+    <hr>
+    <h3>Results:<h3>
+    <div id="results">
+    </div>
     <script>
-      function send() {
+      window.onload = () => {
+        getData();
+      };
+      const send = () => {
         const form = document.getElementById("form");
         const formData = new FormData(form);
         const body = {
@@ -31,20 +38,33 @@
           lastName: formData.get("lastName"),
           topic: formData.get("topic"),
         };
-        fetch("http://testhost/api/", {
+        fetch("http://testhost/", {
           method: "POST",
           headers: {
             "Content-Type": "application/json"
           },
           body: JSON.stringify(body)
+        })
+        .then((response) => response.json())
+        .then((data) => {
+          alert(`data ${data}`);
+          const results = document.getElementById("results");
+          results.innerHTML += "<span>Name: </span>" + data.firstName + " " + data.lastName + "<span>, Topic: </span>" + data.topic + "<br>";
+        })
+        .catch((error) => {
+          console.log('Error:', error);
         });
-        // .then((response) => response.json())
-        // .then((data) => {
-        //   alert('Success:', data);
-        // })
-        // .catch((error) => {
-        //   alert('Error:', error);
-        // });
+      }
+      const getData = () => {
+        fetch("http://testhost/")
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data);
+          const results = document.getElementById("results");
+          data.forEach(element => {
+            results.innerHTML += "<span>Name: </span>" + element.firstName + " " + element.lastName + "<span>, Topic: </span>" + element.topic + "<br>";
+          });
+        });
       }
     </script>
   </body>
